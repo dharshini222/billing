@@ -1,0 +1,371 @@
+from tkinter import *
+import math, random
+from tkinter import messagebox
+
+class Bill_App:
+    def __init__(self, root):
+        self.root = root
+        self.root.geometry("1350x700+0+0")
+        self.root.title("J Software Solutions")
+        bg_color = "#8c8c8c"
+        title = Label(self.root, text="AGNI STORES", bd=12, bg=bg_color, relief=GROOVE, fg="#000",
+                      font=("Helvetica", 30, "bold"), pady=2).pack(fill=X)
+        #=====variables=====
+        #=====grocery=========
+        self.Milk = IntVar()
+        self.Sugar = IntVar()
+        self.Soup = IntVar()
+        self.meat = IntVar()
+        self.paneer = IntVar()
+        self.rice = IntVar()
+        #=======softdrinks=======
+        self.bovanto = IntVar()
+        self.Apple = IntVar()
+        self.Limca = IntVar()
+        self.Coke = IntVar()
+        self.Pepsi = IntVar()
+        self.fanta = IntVar()
+        #======cosmetics=====
+        self.Found = IntVar()
+        self.concealer = IntVar()
+        self.eye = IntVar()
+        self.kajal = IntVar()
+        self.lip = IntVar()
+        self.compact = IntVar()
+        #=======total product price and gst=====
+        self.grocery_price = StringVar()
+        self.softdrink_price = StringVar()
+        self.cosmetic_price = StringVar()
+
+        self.grocery_tax = StringVar()
+        self.softdrink_tax = StringVar()
+        self.cosmetic_tax = StringVar()
+
+        #=====customer=========
+
+        self.c_name = StringVar()
+        self.C_phone = StringVar()
+
+        self.bill_no = StringVar()
+        x = random.randint(1000, 9999)
+        self.bill_no.set(str(x))
+
+
+        F1 = LabelFrame(self.root, bd= 10, text="Customer Details", font=("Helvetica", 16, "italic"), fg="#000066", bg= bg_color)
+        F1.place(x=0, y=80, relwidth=3)
+
+        cname_lbl = Label(F1, text="Customer Name", bg=bg_color, fg="#000", font=("Helvetica", 18, "normal"))\
+           .grid(row=0, column=0, padx=20, pady=5)
+        cname_txt = Entry(F1, width=15, textvariable=self.c_name, font="arial 15", bd=7, relief=SUNKEN).grid(row=0, column=1, pady=5, padx=10)
+
+        cphn_lbl = Label(F1, text="Phone No.", bg=bg_color, fg="#000", font=("Helvetica", 18, "normal"))\
+           .grid(row=0, column=2, padx=20, pady=5)
+        cname_txt = Entry(F1, width=15, textvariable=self.C_phone, font="arial 15", bd=7, relief=SUNKEN).grid(row=0, column=3, pady=5, padx=10)
+
+        cbill_lbl = Label(F1, text="Bill Number", bg=bg_color, fg="#000", font=("Helvetica", 18, "normal"))\
+           .grid(row=0, column=4, padx=20, pady=5)
+        cname_txt = Entry(F1, width=15, textvariable=self.bill_no,  font="arial 15", bd=7, relief=SUNKEN).grid(row=0, column=5, pady=5, padx=10)
+
+        bill_btn = Button(F1,  text="search", width=10,  bd=7, font="helvetica 12 bold")\
+           .grid(row=0, column=6, padx=10, pady=10)
+
+        F2 = LabelFrame(self.root, bd=10, relief=GROOVE, text="Grocery", font=("times new roman", 20, "italic"), fg="#000066", bg=bg_color)
+        F2.place(x=5, y=180, width=330, height=380)
+
+
+
+        Milk_lbl = Label(F2, text="Milk", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=1, column=0, padx=10, pady=10, sticky="W")
+        Milk_txt = Entry(F2, width=10,  textvariable=self.Milk,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=1, column=1, padx=10, pady=10)
+
+        Sugar_lbl = Label(F2, text="Sugar", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=2, column=0, padx=10, pady=10, sticky="W")
+        Sugar_txt = Entry(F2, width=10,  textvariable=self.Sugar,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=2, column=1, padx=10, pady=10)
+
+        Soup_lbl = Label(F2, text="Soup can", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=3, column=0, padx=10, pady=10, sticky="W")
+        soup_txt = Entry(F2, width=10,  textvariable=self.Soup,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=3, column=1, padx=10, pady=10)
+
+        meat_lbl = Label(F2, text="Meat", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=4, column=0, padx=10, pady=10, sticky="W")
+        meat_txt = Entry(F2, width=10,  textvariable=self.meat,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=4, column=1, padx=10, pady=10)
+
+        paneer_lbl = Label(F2, text="paneer", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=5,
+                                                                                                             column=0,
+                                                                                                             padx=10,
+                                                                                                             pady=10,
+                                                                                                             sticky="W")
+        paneer_txt = Entry(F2, width=10,  textvariable=self.paneer,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=5, column=1,
+                                                                                                       padx=10, pady=10)
+
+        rice_lbl = Label(F2, text="rice", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=0,
+                                                                                                             column=0,
+                                                                                                             padx=10,
+                                                                                                             pady=10,
+                                                                                                             sticky="W")
+        rice_txt = Entry(F2, width=10,  textvariable=self.rice,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=0, column=1,
+                                                                                                       padx=10, pady=10)
+
+        #======soft drinks==========
+
+        F3 = LabelFrame(self.root, bd=10, relief=GROOVE, text="Soft Drinks", font=("times new roman", 20, "italic"), fg="#000066", bg=bg_color)
+        F3.place(x=340, y=180, width=340, height=380)
+
+
+
+        bovanto_lbl = Label(F3, text="Bovanto", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=0, column=0, padx=10, pady=10, sticky="W")
+        bovanto_txt = Entry(F3, width=10,  textvariable=self.bovanto,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=0, column=1, padx=10, pady=10)
+
+        Apple_lbl = Label(F3, text="Apple Fizz", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=1, column=0, padx=10, pady=10, sticky="W")
+        Apple_txt = Entry(F3, width=10,  textvariable=self.Apple,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=1, column=1, padx=10, pady=10)
+
+        Limca_lbl = Label(F3, text="Limca", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=2, column=0, padx=10, pady=10, sticky="W")
+        Limca_txt = Entry(F3, width=10,  textvariable=self.Limca,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=2, column=1, padx=10, pady=10)
+
+        Coke_lbl = Label(F3, text="Cocacola", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=3, column=0, padx=10, pady=10, sticky="W")
+        Coke_txt = Entry(F3, width=10,  textvariable=self.Coke,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=3, column=1, padx=10, pady=10)
+
+        Pepsi_lbl = Label(F3, text="Pepsi", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=4,
+                                                                                                             column=0,
+                                                                                                             padx=10,
+                                                                                                             pady=10,
+                                                                                                             sticky="W")
+        Pepsi_txt = Entry(F3, width=10,  textvariable=self.Pepsi,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=4, column=1,
+                                                                                                       padx=10, pady=10)
+
+        fanta_lbl = Label(F3, text="Fanta", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=5,
+                                                                                                     column=0,
+                                                                                                             padx=10,
+                                                                                                             pady=10,
+                                                                                                             sticky="W")
+        fanta_txt = Entry(F3, width=10,  textvariable=self.fanta,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=5, column=1,
+                                                                                                       padx=10, pady=10)
+
+        #=====cosmetics====
+        F4 = LabelFrame(self.root, bd=10, relief=GROOVE, text="Cosmetics", font=("times new roman", 20, "italic"), fg="#000066", bg=bg_color)
+        F4.place(x=685, y=180, width=340, height=380)
+
+
+
+        Found_lbl = Label(F4, text="Foundation", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=0, column=0, padx=10, pady=10, sticky="W")
+        Found_txt = Entry(F4, width=10,  textvariable=self.Found,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=0, column=1, padx=10, pady=10)
+
+        concealer_lbl = Label(F4, text="Concealer", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=1, column=0, padx=10, pady=10, sticky="W")
+        concealer_txt = Entry(F4, width=10,  textvariable=self.concealer,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=1, column=1, padx=10, pady=10)
+
+        eye_lbl = Label(F4, text="Eyeliner", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=2, column=0, padx=10, pady=10, sticky="W")
+        eye_txt = Entry(F4, width=10,   textvariable=self.eye,  font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=2, column=1, padx=10, pady=10)
+
+        kajal_lbl = Label(F4, text="Kajal", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=3, column=0, padx=10, pady=10, sticky="W")
+        kajal_txt = Entry(F4, width=10,  textvariable=self.kajal,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=3, column=1, padx=10, pady=10)
+
+        lip_lbl = Label(F4, text="Lip Gloss", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=4,
+                                                                                                             column=0,
+                                                                                                             padx=10,
+                                                                                                             pady=10,
+                                                                                                             sticky="W")
+        lip_txt = Entry(F4, width=10,   textvariable=self.lip,  font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=4, column=1,
+                                                                                                       padx=10, pady=10)
+
+        compact_lbl = Label(F4, text="C.Powder", font=("times new roman", 16, "bold"), bg=bg_color, fg="#000").grid(row=5,
+                                                                                                         column=0,
+                                                                                                             padx=10,
+                                                                                                             pady=10,
+                                                                                                             sticky="W")
+        compact_txt = Entry(F4, width=10,  textvariable=self.compact,   font=("times new roman", 16, "bold"), bd=5, relief=SUNKEN).grid(row=5, column=1,
+                                                                                                       padx=10, pady=10)
+
+
+
+        #=====BILLING AREA=====
+
+        F5 = Frame(self.root, bd=10, relief=GROOVE)
+        F5.place(x=1035, y=180, width=560, height=380)
+        bill_title = Label(F5, text="Bill Area", font=("Helvetica", 15, "bold"), bd=7, relief=GROOVE).pack(fill=X)
+        scrol_y = Scrollbar(F5, orient=VERTICAL)
+        self.txtarea = Text(F5, yscrollcommand=scrol_y.set)
+        scrol_y.pack(side=RIGHT, fill=Y)
+        scrol_y.config(command=self.txtarea.yview)
+        self.txtarea.pack(fill=BOTH, expand=1)
+
+        #====button frame====
+
+        F6 = LabelFrame(self.root, bd=10, relief=GROOVE, text="Bill Menu", font=("times new roman", 20, "italic"), fg="#000066", bg=bg_color)
+        F6.place(x=0, y=560, relwidth=1, height=270)
+
+        m1_lbl = Label(F6, text="Total Grocery Price", bg=bg_color, fg="#000", font=("times new roman", 20, "bold")).grid(row=0, column=0, padx=20, pady=15, sticky="w")
+        m1_txt = Entry(F6, width=18,  textvariable=self.grocery_price,   font="arial 10 bold", bd=7, relief=SUNKEN).grid(row=0, column=1, padx=10, pady=1)
+
+        m2_lbl = Label(F6, text="Total Soft Drink price", bg=bg_color, fg="#000", font=("times new roman", 20, "bold")).grid(row=1, column=0, padx=20, pady=15, sticky="w")
+        m2_txt = Entry(F6, width=18,  textvariable=self.softdrink_price,   font="arial 10 bold", bd=7, relief=SUNKEN).grid(row=1, column=1, padx=10, pady=1)
+
+        m3_lbl = Label(F6, text="Total Cosmetic Price", bg=bg_color, fg="#000", font=("times new roman", 20, "bold")).grid(row=2, column=0, padx=20, pady=15, sticky="w")
+        m3_txt = Entry(F6, width=18,  textvariable=self.cosmetic_price,   font="arial 10 bold", bd=7, relief=SUNKEN).grid(row=2, column=1, padx=10, pady=1)
+
+        c1_lbl = Label(F6, text="Grocery GST ", bg=bg_color, fg="#000", font=("times new roman", 20, "bold")).grid(row=0, column=2, padx=20, pady=15, sticky="w")
+        c1_txt = Entry(F6, width=18,  textvariable=self.grocery_tax,   font="arial 10 bold", bd=7, relief=SUNKEN).grid(row=0, column=3, padx=10, pady=1)
+
+        c2_lbl = Label(F6, text=" Soft Drink GST ", bg=bg_color, fg="#000", font=("times new roman", 20, "bold")).grid(row=1, column=2, padx=20, pady=15, sticky="w")
+        c2_txt = Entry(F6, width=18,  textvariable=self.softdrink_tax,   font="arial 10 bold", bd=7, relief=SUNKEN).grid(row=1, column=3, padx=10, pady=1)
+
+        c3_lbl = Label(F6, text="Cosmetic GST", bg=bg_color, fg="#000", font=("times new roman", 20, "bold")).grid(row=2, column=2, padx=20, pady=15, sticky="w")
+        c3_txt = Entry(F6, width=18,  textvariable=self.cosmetic_tax,   font="arial 10 bold", bd=7, relief=SUNKEN).grid(row=2, column=3, padx=10, pady=1)
+
+        btn_F = Frame(F6, bd=7, relief=GROOVE)
+        btn_F.place(x=870, width=705, height=215)
+
+
+        total_btn = Button(btn_F, command=self.total, text="Total", bg="#595959", fg="white", bd=7, pady=70, width=11, font="arial 16 bold").grid(row=0, column=0, padx=6, pady=5)
+        gbill_btn = Button(btn_F, command=self.bill_area, text="Generate Bill", bg="#595959", fg="white", bd=5, pady=70, width=11,
+                           font="arial 16 bold").grid(row=0, column=2, padx=6, pady=5)
+        clear_btn = Button(btn_F, text="Clear", bg="#595959", fg="white", bd=7, pady=70, width=11,
+                           font="arial 16 bold").grid(row=0, column=3, padx=6, pady=5)
+        exit_btn = Button(btn_F, text="Exit", bg="#595959", fg="white", bd=7, pady=70, width=11,
+                           font="arial 16 bold").grid(row=0, column=4, padx=6, pady=5)
+
+        self.welcome_bill()
+
+    def total(self):
+        self.g_M_p=self.Milk.get() * 40
+        self.g_S_p=self.Sugar.get() * 120
+        self.g_So_p = self.Soup.get() * 60
+        self.g_m_p = self.meat.get() * 180
+        self.g_p_p = self.paneer.get() * 140
+        self.g_r_p = self.rice.get() * 180
+
+        self.total_grocery_price=float(
+                                   self.g_M_p +
+                                   self.g_S_p +
+                                   self.g_So_p +
+                                   self.g_m_p +
+                                   self.g_p_p +
+                                   self.g_r_p
+
+
+                                 )
+
+        self.grocery_price.set("Rs. "+str(self.total_grocery_price))
+        self.g_tax=round((self.total_grocery_price*0.05), 2)
+        self.grocery_tax.set("Rs. "+str(self.g_tax))
+
+        self.s_b_p=self.bovanto.get()*30
+        self.s_a_p=self.Apple.get()*35
+        self.s_l_p=self.Limca.get()*20
+        self.s_c_p=self.Coke.get()*30
+        self.s_p_p=self.Pepsi.get()*35
+        self.s_f_p=self.fanta.get()*22
+
+
+        self.total_softdrinks_price=float(
+                                                self.s_b_p +
+                                                self.s_a_p +
+                                                self.s_l_p +
+                                                self.s_c_p +
+                                                self.s_p_p +
+                                                self.s_f_p
+
+                                 )
+
+        self.softdrink_price.set("Rs. "+str(self.total_softdrinks_price))
+        self.s_tax=round((self.total_softdrinks_price * 0.02), 2)
+        self.softdrink_tax.set("Rs. "+str(self.s_tax))
+
+        self.c_F_p = self.Found.get() * 160
+        self.c_c_p = self.concealer.get() * 120
+        self.c_e_p = self.eye.get() * 50
+        self.c_k_p = self.kajal.get() * 180
+        self.c_l_p = self.lip.get() * 60
+        self.c_cm_p = self.compact.get() * 150
+
+        self.total_cosmetic_price=float(
+                                        self.c_F_p +
+                                        self.c_c_p +
+                                        self.c_e_p +
+                                        self.c_k_p +
+                                        self.c_l_p +
+                                        self.c_cm_p
+                                 )
+
+        self.cosmetic_price.set("Rs. "+str(self.total_cosmetic_price))
+        self.c_tax=round((self.total_cosmetic_price * 0.07), 2)
+        self.cosmetic_tax.set("Rs. "+str(self.c_tax))
+
+        self.Total_bill=float(self.total_grocery_price +
+                              self.total_softdrinks_price +
+                              self.total_cosmetic_price +
+                              self.g_tax +
+                              self.s_tax +
+                              self.c_tax
+                              )
+
+
+    def welcome_bill(self):
+        self.txtarea.delete(1.0, END)
+        self.txtarea.insert(END, "\t\t\t WELCOME AGNI STORES\n",)
+        self.txtarea.insert(END, f"\n Bill Number : {self.bill_no.get()} ", )
+        self.txtarea.insert(END, f"\n Customer Name : {self.c_name.get()}", )
+        self.txtarea.insert(END, f"\n Customer Phone Number : {self.C_phone.get()}", )
+        self.txtarea.insert(END, "\n================================================================")
+        self.txtarea.insert(END, f"\n Products\t\t\t\tQTY\t\t\tPrice")
+        self.txtarea.insert(END, "\n================================================================")
+
+    def bill_area(self):
+        if self.c_name.get()=="" or self.C_phone.get()=="":
+            messagebox.showerror("Error", "Customer details are must")
+        elif self.grocery_price=="Rs. 0.0" and self.softdrink_price=="Rs. 0.0" and self.cosmetic_price=="Rs. 0.0":
+            messagebox.showerror("Error", "No product Purchased")
+        else:
+            self.welcome_bill()
+            #======grocery=======
+            if self.Milk.get() != 0:
+                self.txtarea.insert(END, f"\n Milk\t\t\t\t{self.Milk.get()}\t\t\t{self.g_M_p} ")
+            if self.Sugar.get() != 0:
+                self.txtarea.insert(END, f"\n Sugar\t\t\t\t{self.Sugar.get()}\t\t\t{self.g_S_p} ")
+            if self.Soup.get() != 0:
+                self.txtarea.insert(END, f"\n Soup can\t\t\t\t{self.Soup.get()}\t\t\t{self.g_So_p} ")
+            if self.meat.get() != 0:
+                self.txtarea.insert(END, f"\n Meat\t\t\t\t{self.meat.get()}\t\t\t{self.g_m_p} ")
+            if self.paneer.get() != 0:
+                self.txtarea.insert(END, f"\n Paneer\t\t\t\t{self.paneer.get()}\t\t\t{self.g_p_p} ")
+            if self.rice.get() != 0:
+                self.txtarea.insert(END, f"\n Rice\t\t\t\t{self.rice.get()}\t\t\t{self.g_r_p} ")
+            #========softdrinks=========
+            if self.bovanto.get() != 0:
+                self.txtarea.insert(END, f"\n Bovanto\t\t\t\t{self.bovanto.get()}\t\t\t{self.s_b_p} ")
+            if self.Apple.get() != 0:
+                self.txtarea.insert(END, f"\n Apple Fizz\t\t\t\t{self.Apple.get()}\t\t\t{self.s_a_p} ")
+            if self.Limca.get() != 0:
+                self.txtarea.insert(END, f"\n Limca\t\t\t\t{self.Limca.get()}\t\t\t{self.s_l_p} ")
+            if self.Coke.get() != 0:
+                self.txtarea.insert(END, f"\n Cocacola\t\t\t\t{self.Coke.get()}\t\t\t{self.s_c_p} ")
+            if self.Pepsi.get() != 0:
+                self.txtarea.insert(END, f"\n Pepsi\t\t\t\t{self.Pepsi.get()}\t\t\t{self.s_p_p} ")
+            if self.fanta.get() != 0:
+                self.txtarea.insert(END, f"\n Fanta\t\t\t\t{self.fanta.get()}\t\t\t{self.s_f_p} ")
+            #=======cosmetics===========
+            if self.Found.get() != 0:
+                self.txtarea.insert(END, f"\n Foundation\t\t\t\t{self.Found.get()}\t\t\t{self.c_F_p} ")
+            if self.concealer.get() != 0:
+                self.txtarea.insert(END, f"\n Concealer\t\t\t\t{self.concealer.get()}\t\t\t{self.c_c_p} ")
+            if self.eye.get() != 0:
+                self.txtarea.insert(END, f"\n Eyeliner\t\t\t\t{self.eye.get()}\t\t\t{self.c_e_p} ")
+            if self.kajal.get() != 0:
+                self.txtarea.insert(END, f"\n Kajal\t\t\t\t{self.kajal.get()}\t\t\t{self.c_k_p} ")
+            if self.lip.get() != 0:
+                self.txtarea.insert(END, f"\n Lip Gloss\t\t\t\t{self.lip.get()}\t\t\t{self.c_l_p} ")
+            if self.compact.get() != 0:
+                self.txtarea.insert(END, f"\n C.Power\t\t\t\t{self.compact.get()}\t\t\t{self.c_cm_p} ")
+
+            self.txtarea.insert(END, "\n----------------------------------------------------------------")
+            if self.grocery_tax.get()!="Rs. 0.0":
+              self.txtarea.insert(END, f"\n Grocery GST\t\t\t\t{self.grocery_tax.get()}")
+
+            if self.softdrink_tax.get()!="Rs. 0.0":
+              self.txtarea.insert(END, f"\n Soft Drinks GST\t\t\t\t{self.softdrink_tax.get()}")
+
+            if self.cosmetic_tax.get()!="Rs. 0.0":
+              self.txtarea.insert(END, f"\n Cosmetics GST\t\t\t\t{self.cosmetic_tax.get()}")
+
+            self.txtarea.insert(END, f"\n Total Cost : \t\t\t\tRs. {str(self.Total_bill)}")
+            self.txtarea.insert(END, "\n----------------------------------------------------------------")
+
+
+root = Tk()
+obj = Bill_App(root)
+root.mainloop()
